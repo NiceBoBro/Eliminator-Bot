@@ -1,0 +1,20 @@
+name : 'ban',
+    aliases : ['k'],
+    category : 'moderation',
+    description : 'Ban People',
+    run: async(client, message, args) => {
+        if(!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(':x: | You don´t have permissions to do that, sorry.');
+        if(!message.guild.me.hasPermission('ADMINISTRATOR')) return message.channel.send(':x: | I don´t have permissions to do that, sorry.');
+
+
+        const Member = message.mentions.members.first()
+        if(!Member) return message.channel.send(':x: | Please name a user whom I should ban.');
+
+        await Member.kick({ reason : args.slice(1).join(" ")})
+
+        message.channel.send(`:white_check_mark: | ${Member.user.tag} has been **banned** from the server R.I.P`)
+        
+
+       
+    }
+}
